@@ -1,0 +1,3 @@
+This folder needs to be here for local deployments only (local-dev and local-prod) so that the celery workers can get access to enviornment variables when instantiated from the command line (with CWD = ~/src). These files are not needed for development and production server deployments as the enviornment variables will be imported via the compose.yaml files. 
+
+The ~/env folder is required for ALL types of deployment, however.

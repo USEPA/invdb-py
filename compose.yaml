@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+    invdb-py:
+        image: 015137877991.dkr.ecr.us-east-1.amazonaws.com/invdb-py:${BUILD_NUMBER}
+        environment:
+           py-env: "DEVELOPMENT"
+        deploy:
+            restart_policy:
+                condition: any
+                max_attempts: 3
+                window: 5m
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints:
+                    - node.hostname == ghg-test
+            update_config:
+                order: start-first
+                parallelism: 1
+                delay: 5m
+        ports:
+            - "5000:5000"
+#        networks:
+#            - eggrt
+#networks:
+#    eggrt:
+#        external: true
