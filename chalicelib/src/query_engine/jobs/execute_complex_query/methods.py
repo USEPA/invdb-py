@@ -7,9 +7,6 @@ import chalicelib.src.general.helpers as helpers
 
 time_series = {}
 
-<<<<<<< HEAD
-def execute_complex_query(query_formula_parameters: dict, reporting_year: int, layer_id: int, gwp: str=None):  # , query_formula_parameters: dict):
-=======
 
 def execute_complex_query(
     query_id: str,
@@ -19,49 +16,29 @@ def execute_complex_query(
     is_group_by_state: bool = False,
     gwp: str = None,
 ):  # , query_formula_parameters: dict):
->>>>>>> gitlab/develop
     global time_series
 
     # dim_report_info = fetch_dim_report_row(id)
     # if not dim_report_info:
     #     return {"result": f"There is no dim_report_row with ID: {id}"}
     # query_formula_id, query_formula_parameters, reporting_year, layer_id = dim_report_info[0]
-<<<<<<< HEAD
-    year_obj = qe_methods.get_qe_years_object(reporting_year)
-    time_series = year_obj
-    print(
-        f"Query Formula Parameters: {query_formula_parameters}"
-    )
-=======
     time_series = qe_methods.get_qe_years_object(reporting_year)
     result_obj = {}
     print(f"Query Formula Parameters: {query_formula_parameters}")
->>>>>>> gitlab/develop
     formula_exists = False
     for key, value in query_formula_parameters.items():
         if key == "formula":
             formula_exists = True
             formula_template = value
-<<<<<<< HEAD
-            calc_values = get_calculation_values(formula_template, reporting_year, layer_id, gwp)
-=======
             calc_values = get_calculation_values(
                 formula_template, reporting_year, layer_id, is_group_by_state, gwp
             )
->>>>>>> gitlab/develop
             if not calc_values:
                 raise ValueError(
                     f"Something went wrong when getting calculation values for report_row_id: {id}"
                 )
             # Evaluate the expression
             try:
-<<<<<<< HEAD
-                evaluate_formula(formula_template, calc_values, year_obj)
-                print(
-                    f"eval(formula) : {year_obj}"
-                )  # This will output the result of the formula
-                return year_obj
-=======
                 evaluate_formula(
                     query_id,
                     formula_template,
@@ -73,7 +50,6 @@ def execute_complex_query(
                     f"eval(formula) : {result_obj}"
                 )  # This will output the result of the formula
                 return result_obj
->>>>>>> gitlab/develop
             except Exception as e:
                 print(f"Error evaluating: {e}")
                 traceback.print_exc()
@@ -81,16 +57,11 @@ def execute_complex_query(
     if not formula_exists:
         raise ValueError(f"No formula found for complex query for report_row_id {id}")
 
-<<<<<<< HEAD
-# Function to dynamically replace placeholders with the function return values
-def get_calculation_values(formula, reporting_year, layer_id, gwp: str=None):
-=======
 
 # Function to dynamically replace placeholders with the function return values
 def get_calculation_values(
     formula, reporting_year, layer_id, is_group_by_state: bool, gwp: str = None
 ):
->>>>>>> gitlab/develop
     # Regular expression to find text within square brackets
     bracket_pattern = re.compile(r"\[([A-Za-z]+)(\d+)\]")
     matches = bracket_pattern.findall(formula)
@@ -111,17 +82,6 @@ def get_calculation_values(
             calculation_factor_ids.append(id)
         else:
             raise ValueError(f"No matching function for placeholder {placeholder}")
-<<<<<<< HEAD
-    sq_values = calculate_sq_values(simple_query_ids, reporting_year, layer_id, gwp)
-    if not bool(sq_values) or len(sq_values) != len(simple_query_ids):
-        raise Exception(f"There is issue with getting values for Simple Queries: {simple_query_ids}")
-    cf_values = calculate_cf_values(calculation_factor_ids)
-    result = {**sq_values, **cf_values}
-    print(f"result: {result}")
-    return result
-
-def calculate_sq_values(sq_ids, reporting_year, layer_id, gwp: str=None):
-=======
     sq_values = calculate_sq_values(
         simple_query_ids, reporting_year, layer_id, is_group_by_state, gwp
     )
@@ -144,21 +104,12 @@ def calculate_sq_values(sq_ids, reporting_year, layer_id, gwp: str=None):
 def calculate_sq_values(
     sq_ids, reporting_year, layer_id, is_group_by_state: bool = False, gwp: str = None
 ):
->>>>>>> gitlab/develop
     if not sq_ids:
         return {}
     # get rid of any duplicate ids
     unique_sq_ids = list(set(sq_ids))
     sq_query_formula_dets = fetch_query_formula_dets(unique_sq_ids)
     print(f"sq_qf: {sq_query_formula_dets}")
-<<<<<<< HEAD
-    return execute_simple_query(sq_query_formula_dets, reporting_year, layer_id, gwp)
-    
-def calculate_cf_values(cf_ids):
-    if not cf_ids:
-        return {}
-     # get rid of any duplicate ids
-=======
     return execute_simple_query(
         sq_query_formula_dets, reporting_year, layer_id, is_group_by_state, gwp
     )
@@ -168,7 +119,6 @@ def calculate_cf_values(cf_ids):
     if not cf_ids:
         return {}
     # get rid of any duplicate ids
->>>>>>> gitlab/develop
     unique_cf_ids = list(set(cf_ids))
     calc_values = fetch_calc_factor_values(unique_cf_ids)
     if not calc_values:
@@ -177,11 +127,7 @@ def calculate_cf_values(cf_ids):
     result_dict = {}
     for row in calc_values:
         calc_factor_id, is_constant, cf_value, year, year_id, ci_value = row
-<<<<<<< HEAD
-        outer_key = 'CF' + str(calc_factor_id)
-=======
         outer_key = "CF" + str(calc_factor_id)
->>>>>>> gitlab/develop
         if outer_key not in result_dict:
             result_dict[outer_key] = {}
             # construct the entire object. If constant with constant
@@ -198,9 +144,6 @@ def calculate_cf_values(cf_ids):
                 result_dict[outer_key][str(year_id)] = ci_value
     return result_dict
 
-<<<<<<< HEAD
-def evaluate_formula(formula_template, calc_values, year_obj):
-=======
 
 def evaluate_formula(
     query_id, formula_template, calc_values, is_group_by_state, result_obj
@@ -226,7 +169,6 @@ def evaluate_formula(
 
 
 def evaluate_formula_years(formula_template, calc_values, year_obj):
->>>>>>> gitlab/develop
     # Loop through the years in the 'emission' dictionary.
     for year in year_obj.keys():
         # Start with empty calc_val and the original formula template for each calculation
@@ -240,11 +182,7 @@ def evaluate_formula_years(formula_template, calc_values, year_obj):
 
         # Replace each key in the formula with its corresponding value from calc_val
         for key, value in calc_val.items():
-<<<<<<< HEAD
-            formula = formula.replace('['+key+']', str(value))
-=======
             formula = formula.replace("[" + key + "]", str(value))
->>>>>>> gitlab/develop
 
         # Evaluate the formula after replacement and add the result to the results list
         try:
@@ -255,16 +193,6 @@ def evaluate_formula_years(formula_template, calc_values, year_obj):
             year_obj[year] = None
 
 
-<<<<<<< HEAD
-def handle_complex_query_request(queries: list[str], reporting_year: int, layer_id: int, user_id: int):
-    '''API endpoint logic that exposes the execute_complex_query() function above. Also supports multiple (single-processing) 
-    complex query requests.'''
-    response_object = {}
-    for index, query_formula in enumerate(queries):
-        print("query_formula", query_formula)
-        response_object[f"Query {index + 1}"] = execute_complex_query({"formula": query_formula}, reporting_year, layer_id)
-    return response_object
-=======
 def handle_complex_query_request(
     queries: list[str], reporting_year: int, layer_id: int, user_id: int
 ):
@@ -277,4 +205,3 @@ def handle_complex_query_request(
             {"formula": query_formula}, reporting_year, layer_id
         )
     return response_object
->>>>>>> gitlab/develop

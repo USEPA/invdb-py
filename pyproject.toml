@@ -5,9 +5,7 @@ description = ""
 authors = ["Dillon Brown <dillon.j.brown@saic.com>"]
 readme = "README.md"
 
-<<<<<<< HEAD
-=======
-packages = [    
+packages = [
     {include = "chalicelib/src/AWS"},
     {include = "chalicelib/src/database"},
     {include = "chalicelib/src/general"},
@@ -20,7 +18,6 @@ packages = [
     {include = "chalicelib/src/unfccc"}
 ]
 
->>>>>>> gitlab/develop
 [tool.poetry.dependencies]
 python = "^3.9"
 psycopg2-binary = "^2.9.9"
@@ -39,10 +36,7 @@ boto3 = "^1.35.66"
 python-dotenv = "^1.0.1"
 pandas = "^2.2.3"
 debugpy = "^1.8.9"
-<<<<<<< HEAD
-=======
 docker = "^7.1.0"
->>>>>>> gitlab/develop
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"

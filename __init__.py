@@ -24,11 +24,8 @@ import traceback
 import json
 import sys
 import os
-<<<<<<< HEAD
-=======
 import docker
 import signal
->>>>>>> gitlab/develop
 
 
 def get_parameters(request) -> dict:
@@ -719,11 +716,6 @@ def recalculations_report_endpoint():
 def download_recalculations_excel_endpoint():
     try:
         
-<<<<<<< HEAD
-
-        
-=======
->>>>>>> gitlab/develop
         helpers.tprint("Recalculations excel download request received")
         parameters = get_parameters(request)
         helpers.tprint(f"The input parameters are {parameters}")
@@ -751,8 +743,6 @@ def download_recalculations_excel_endpoint():
         helpers.tprint(traceback_obj)
         return jsonify({"traceback": traceback_obj}), 500
 
-<<<<<<< HEAD
-=======
 # ===================== Restart Python Container =====================
 @app_base.route("/restart-python-container", methods=["GET","POST"])
 def invoke_python_restart():
@@ -783,7 +773,6 @@ def invoke_python_restart():
 #     except Exception:
 #         traceback_obj = traceback.format_exc()
 #         return jsonify({"message": traceback_obj}), 500
->>>>>>> gitlab/develop
 
 # ===================== MAIN =====================
 
