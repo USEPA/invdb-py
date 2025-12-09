@@ -24,6 +24,8 @@ import traceback
 import json
 import sys
 import os
+import docker
+import signal
 
 
 def get_parameters(request) -> dict:
@@ -714,8 +716,6 @@ def recalculations_report_endpoint():
 def download_recalculations_excel_endpoint():
     try:
         
-
-        
         helpers.tprint("Recalculations excel download request received")
         parameters = get_parameters(request)
         helpers.tprint(f"The input parameters are {parameters}")
@@ -743,6 +743,36 @@ def download_recalculations_excel_endpoint():
         helpers.tprint(traceback_obj)
         return jsonify({"traceback": traceback_obj}), 500
 
+# ===================== Restart Python Container =====================
+@app_base.route("/restart-python-container", methods=["GET","POST"])
+def invoke_python_restart():
+    try:
+        helpers.tprint(f"reached last spot")
+        client = docker.from_env()
+        print('before getting the container')
+        container = client.containers.get("invdb-py")
+        print('got the container')
+        message = ''
+        if (container.status != 'running'):
+            message = jsonify({"message": "Container is not running."}), 200
+        else:
+            helpers.tprint(container.status)
+            container.stop()
+            message = jsonify({"message":"Container restarted successfully."}), 200
+        return message
+    except Exception:
+        traceback_obj = traceback.format_exc()
+        return jsonify({"message": traceback_obj}), 500
+
+# @app_base.route("/restart-python-container", methods=["GET","POST"])
+# def invoke_python_restart():
+#     try:
+#         helpers.tprint(f"reached invdb-py")
+#         os.kill(1, signal.SIGKILL)
+#         return jsonify({"message":"Container restarted successfully."}), 200
+#     except Exception:
+#         traceback_obj = traceback.format_exc()
+#         return jsonify({"message": traceback_obj}), 500
 
 # ===================== MAIN =====================
 

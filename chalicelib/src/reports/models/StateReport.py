@@ -125,7 +125,8 @@ class StateReport(Report):
             # restructure the results to simplify formating output data row by row
             rows_with_results = []
             results_by_row = {}
-            for row, year, state, total_quantity in query_batch_results:
+            #INVDB-694 - swapping state and total_quantity as it changed the datatype and caused INVDB-694
+            for row, year, total_quantity, state in query_batch_results:
                 key = (row, state)
                 rows_with_results.append(row)
                 rows_with_results 

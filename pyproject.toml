@@ -5,6 +5,19 @@ description = ""
 authors = ["Dillon Brown <dillon.j.brown@saic.com>"]
 readme = "README.md"
 
+packages = [
+    {include = "chalicelib/src/AWS"},
+    {include = "chalicelib/src/database"},
+    {include = "chalicelib/src/general"},
+    {include = "chalicelib/src/jobs"},
+    {include = "chalicelib/src/publications"},
+    {include = "chalicelib/src/qc_analytics"},
+    {include = "chalicelib/src/query_engine"},
+    {include = "chalicelib/src/reports"},
+    {include = "chalicelib/src/source_files"},
+    {include = "chalicelib/src/unfccc"}
+]
+
 [tool.poetry.dependencies]
 python = "^3.9"
 psycopg2-binary = "^2.9.9"
@@ -23,6 +36,7 @@ boto3 = "^1.35.66"
 python-dotenv = "^1.0.1"
 pandas = "^2.2.3"
 debugpy = "^1.8.9"
+docker = "^7.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.3"

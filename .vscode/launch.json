@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+
+      {
+          "name": "Poetry Debug",
+          "type": "debugpy",
+          "request": "launch",
+          "cwd": "${workspaceFolder}",
+          "console": "integratedTerminal",
+          "python": "C:\\Dev\\workspace\\invdb-py\\dir\\virtualenvs\\invdb-py-B3c_7guc-py3.9\\Scripts\\python.exe",
+          "program": "C:\\Dev\\workspace\\invdb-py\\__init__.py", // full path to file to execute
+          "redirectOutput": true,
+          "justMyCode": false,
+          "stopOnEntry": false
+        },
+        {
+          "name": "Poetry Debug (No Server)",
+          "type": "debugpy",
+          "request": "launch",
+          "args": ["--no-server"],
+          "cwd": "${workspaceFolder}",
+          "console": "integratedTerminal",
+          "python": "C:\\Dev\\workspace\\invdb-py\\dir\\virtualenvs\\invdb-py-B3c_7guc-py3.9\\Scripts\\python.exe",
+          "program": "C:\\Dev\\workspace\\invdb-py\\__init__.py", // full path to file to execute
+          "redirectOutput": true,
+          "justMyCode": false,
+          "stopOnEntry": false
+        }
+  ]
+}
